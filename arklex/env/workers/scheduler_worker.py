@@ -8,7 +8,7 @@ from arklex.env.workers.worker import BaseWorker, register_worker
 from arklex.utils.graph_state import MessageState
 from arklex.env.workers.message_worker import MessageWorker
 
-from utils.calendar_utils import get_calendar_service # Utility module import
+from arklex.env.workers.calendar_utils import get_calendar_service # Utility module import
 
 logger = logging.getLogger(__name__)
 
