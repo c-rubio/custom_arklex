@@ -37,7 +37,7 @@ class RequestWorker(BaseWorker):
 
     def gen_request(self, encoded_request):
         request = json.loads(encoded_request)
-        api_call = request["url"].replace(request["AuthKeyName"], os.environ.get([request["AuthKeyName"]]))
+        api_call = request["url"].replace(request["AuthKeyName"], os.environ.get(request["AuthKeyName"]))
 
         return requests.get(api_call)
 
@@ -119,28 +119,28 @@ class RequestWorker(BaseWorker):
         return state
 
 
-    def gen_request1(self, state: MessageState) -> MessageState: #
-        call_string = state.metadata.call_string
-        request = json.loads(call_string)
-        url_call = request["url"]
-        auth_key = api_keys[request["AuthKeyName"]]
-        full_call = url_call.replace(request["AuthKeyName"], auth_key)
-        print(full_call)
-        api_response = requests.get(full_call)
-        state.metadata.api_response = api_response
-        print(api_response)
-        return state
-    
-    def handle_response1(self, state: MessageState) -> MessageState:
-        response = state.metadata.api_response
-        logger.info(f"API Response: {response.text}")
-        try:
-            response.raise_for_status()
-            state.response= response.text
-        except requests.exceptions.HTTPError as e:
-             state.response = f"API Request Failed: {e}"
-
-        return state
+    #def gen_request1(self, state: MessageState) -> MessageState: #
+    #    call_string = state.metadata.call_string
+    #    request = json.loads(call_string)
+    #    url_call = request["url"]
+    #    auth_key = api_keys[request["AuthKeyName"]]
+    #    full_call = url_call.replace(request["AuthKeyName"], auth_key)
+    #    print(full_call)
+    #    api_response = requests.get(full_call)
+    #    state.metadata.api_response = api_response
+    #    print(api_response)
+    #    return state
+    #
+    #def handle_response1(self, state: MessageState) -> MessageState:
+    #    response = state.metadata.api_response
+    #    logger.info(f"API Response: {response.text}")
+    #    try:
+    #        response.raise_for_status()
+    #        state.response= response.text
+    #    except requests.exceptions.HTTPError as e:
+    #         state.response = f"API Request Failed: {e}"
+#
+    #    return state
     
     def _create_action_graph(self):
         workflow = StateGraph(MessageState)
