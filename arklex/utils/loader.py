@@ -135,7 +135,7 @@ class Loader:
 
                 text_list = []
                 for string in soup.strings:       
-                    st.write("in loop") 
+                    #st.write("in loop") 
                     if string.find_parent("a"):
                         href = urljoin(url_obj.source, string.find_parent("a").get("href"))
                         if href.startswith(url_obj.source):

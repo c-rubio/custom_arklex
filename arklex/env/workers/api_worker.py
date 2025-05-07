@@ -22,6 +22,7 @@ To format a response, use the following encode, and include nothing more in the 
 	“AuthKeyName”: [insert here name of AuthKey e.g. ALPHA_VANTAGE_API_KEY]
 }
 """
+import streamlit as st
 @register_worker
 class RequestWorker(BaseWorker):
     description = "Processes information from the user (and other workers where appropriate) to generate a valid API payload which is sent to a relevant endpoint." \
@@ -38,7 +39,7 @@ class RequestWorker(BaseWorker):
     def gen_request(self, encoded_request):
         request = json.loads(encoded_request)
         api_call = request["url"].replace(request["AuthKeyName"], os.environ.get(request["AuthKeyName"]))
-
+        st.write(api_call)
         return requests.get(api_call)
 
     def handle_response(self, state, api_response):
@@ -61,6 +62,7 @@ class RequestWorker(BaseWorker):
         return req_elements
 
     def format_user_message(self, state: MessageState) -> MessageState:
+        st.write("user formatting")
         #user_message = state["user_message"]
         user_message = state.user_message
         #rag_context = state.get("message_flow", "")
@@ -101,7 +103,9 @@ class RequestWorker(BaseWorker):
 
         response = self.gen_request(formatted_api_string)
         print(response.text)
+        st.write(response.text)
         status = self.handle_response(state, response)
+        st.write(status)
         if status: 
             summary_prompt = PromptTemplate.from_template(summary_template)
             input_summary = summary_prompt.invoke({
