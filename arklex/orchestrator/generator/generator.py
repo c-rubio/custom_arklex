@@ -590,7 +590,8 @@ class Generator:
             best_practice = self._generate_best_practice(task)
             logger.info(f"Generated best practice for task {idx}: {best_practice}")
             best_practices.append(best_practice)
-
+        import streamlit as st
+        st.write("Step 3")
         # Step 3: iterate with user
         format_tasks = []
         for best_practice, task in zip(best_practices, self.tasks):
@@ -607,7 +608,7 @@ class Generator:
         hitl_result = format_tasks
         task_planning_filepath = os.path.join(self.output_dir, f'taskplanning.json')
         json.dump(hitl_result, open(task_planning_filepath, "w"), indent=4)
-
+        st.write("Step 4")
         # Step 4: Pair task with worker
         finetuned_best_practices = []
         for idx_t, task in enumerate(hitl_result):
@@ -621,7 +622,7 @@ class Generator:
             finetuned_best_practice = self._finetune_best_practice(format_steps)
             logger.info(f"Finetuned best practice for task {idx_t}: {finetuned_best_practice}")
             finetuned_best_practices.append(finetuned_best_practice)
-
+        st.write("Step 5")
         # Step 5: Format the task graph
         task_graph = self._format_task_graph(finetuned_best_practices)
 

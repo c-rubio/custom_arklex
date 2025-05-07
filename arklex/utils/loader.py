@@ -21,6 +21,7 @@ import filetype
 from langchain_community.document_loaders import PyPDFLoader, TextLoader, UnstructuredWordDocumentLoader, UnstructuredExcelLoader, UnstructuredMarkdownLoader, TextLoader
 import base64
 from pathlib import Path
+import streamlit as st
 
 # Configure logging
 logging.basicConfig(
@@ -115,8 +116,8 @@ class Loader:
         options.add_argument('--headless')
         options.add_argument('--disable-gpu')
         options.add_argument('--window-size=1920,1200')
-
-        options.binary_location = "/usr/bin/google-chrome-stable"
+        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),
+                                  options=options)
         
         from selenium.webdriver.chrome.service import Service
         driver = webdriver.Chrome(
@@ -129,12 +130,15 @@ class Loader:
             try:
                 logger.info(f"loading url: {url_obj.source}")
                 driver.get(url_obj.source)
+                st.write("got website")
                 time.sleep(2)
                 html = driver.page_source
                 soup = BeautifulSoup(html, "html.parser")
+                st.write("got soup")
 
                 text_list = []
-                for string in soup.strings:        
+                for string in soup.strings:       
+                    st.write("in loop") 
                     if string.find_parent("a"):
                         href = urljoin(url_obj.source, string.find_parent("a").get("href"))
                         if href.startswith(url_obj.source):
