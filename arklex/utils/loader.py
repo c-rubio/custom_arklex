@@ -116,14 +116,11 @@ class Loader:
         options.add_argument('--headless')
         options.add_argument('--disable-gpu')
         options.add_argument('--window-size=1920,1200')
-        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),
-                                  options=options)
+        
         
         from selenium.webdriver.chrome.service import Service
-        driver = webdriver.Chrome(
-            service=Service(ChromeDriverManager().install()),
-            options=options
-        )
+        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),
+                                  options=options)
 
         docs: List[CrawledObject] = []
         for url_obj in url_objects:
