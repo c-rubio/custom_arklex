@@ -119,10 +119,8 @@ class Loader:
         options.add_argument("--disable-extensions")
         options.add_argument("--disable-infobars")
         options.add_argument("--remote-debugging-pipe")
-        chrome_driver_path = Path(ChromeDriverManager(driver_version=CHROME_DRIVER_VERSION).install())
-        options.binary_location = str(chrome_driver_path.parent.absolute())
-        logger.info(f"chrome binary location: {options.binary_location}")
-        driver = webdriver.Chrome(options=options)
+        
+        driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
 
         docs: List[CrawledObject] = []
         for url_obj in url_objects:
