@@ -112,13 +112,8 @@ class Loader:
     def crawl_urls(self, url_objects: list[DocObject]) -> List[CrawledObject]:
         logger.info(f"Start crawling {len(url_objects)} urls")
         options = webdriver.ChromeOptions()
-        options.add_argument("--no-sandbox")
-        options.add_argument("--headless")
-        options.add_argument("--disable-dev-shm-usage")
-        options.add_argument("--disable-gpu")
-        options.add_argument("--disable-extensions")
-        options.add_argument("--disable-infobars")
-        options.add_argument("--remote-debugging-pipe")
+        options.add_argument('--headless')
+        options.add_argument('--disable-gpu')
         options.add_argument('--window-size=1920,1200')
 
         options.binary_location = "/usr/bin/google-chrome-stable"
