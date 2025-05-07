@@ -119,8 +119,9 @@ class Loader:
         options.add_argument("--disable-extensions")
         options.add_argument("--disable-infobars")
         options.add_argument("--remote-debugging-pipe")
-        
-        driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+
+        from selenium.webdriver.chrome.service import Service
+        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
         docs: List[CrawledObject] = []
         for url_obj in url_objects:
