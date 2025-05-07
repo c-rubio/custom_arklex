@@ -602,8 +602,9 @@ class Generator:
                 logger.error(e)
                 continue
             format_tasks.append({"task_name": task_name, "steps": steps})
-        app = TaskEditorApp(format_tasks)
-        hitl_result = app.run()
+        #app = TaskEditorApp(format_tasks)
+        #hitl_result = app.run()
+        hitl_result = format_tasks
         task_planning_filepath = os.path.join(self.output_dir, f'taskplanning.json')
         json.dump(hitl_result, open(task_planning_filepath, "w"), indent=4)
 
