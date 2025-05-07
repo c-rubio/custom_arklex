@@ -119,9 +119,15 @@ class Loader:
         options.add_argument("--disable-extensions")
         options.add_argument("--disable-infobars")
         options.add_argument("--remote-debugging-pipe")
+        options.add_argument('--window-size=1920,1200')
 
+        options.binary_location = "/usr/bin/google-chrome-stable"
+        
         from selenium.webdriver.chrome.service import Service
-        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+        driver = webdriver.Chrome(
+            service=Service(ChromeDriverManager().install()),
+            options=options
+        )
 
         docs: List[CrawledObject] = []
         for url_obj in url_objects:
