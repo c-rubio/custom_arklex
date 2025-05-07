@@ -147,9 +147,10 @@ class Loader:
                 
                 title = url_obj.source
                 for title in soup.find_all("title"):
+                    st.write("in title loop") 
                     title = title.get_text()
                     break
-
+                st.write("at docs append") 
                 docs.append(
                     CrawledObject(
                         id=url_obj.id,
