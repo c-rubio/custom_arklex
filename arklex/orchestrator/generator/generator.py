@@ -28,7 +28,7 @@ from arklex.utils.loader import Loader, SourceType
 import sys
 from arklex.env.env import BaseResourceInitializer, DefaulResourceInitializer
 from arklex.env.nested_graph.nested_graph import NESTED_GRAPH_ID
-
+import streamlit as st
 
 logger = logging.getLogger(__name__)
 
@@ -591,7 +591,7 @@ class Generator:
             best_practice = self._generate_best_practice(task)
             logger.info(f"Generated best practice for task {idx}: {best_practice}")
             best_practices.append(best_practice)
-        import streamlit as st
+        
         
         # Step 3: iterate with user
         format_tasks = []

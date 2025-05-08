@@ -12,7 +12,7 @@ from arklex.utils.graph_state import MessageState
 from arklex.utils.model_config import MODEL
 from arklex.utils.model_provider_config import PROVIDER_MAP
 from arklex.env.tools.RAG.retrievers.faiss_retriever import RetrieveEngine
-
+import streamlit as st
 logger = logging.getLogger(__name__)
 formatting_context = """
 To format a response, use the following encode, and include nothing more in the response. Your output will be parsed appropriately. 
@@ -22,7 +22,7 @@ To format a response, use the following encode, and include nothing more in the 
 	“AuthKeyName”: [insert here name of AuthKey e.g. ALPHA_VANTAGE_API_KEY]
 }
 """
-import streamlit as st
+
 @register_worker
 class RequestWorker(BaseWorker):
     description = "Processes information from the user (and other workers where appropriate) to generate a valid API payload which is sent to a relevant endpoint." \
