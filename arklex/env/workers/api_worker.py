@@ -68,7 +68,8 @@ class RequestWorker(BaseWorker):
         user_message = state.user_message
         #rag_context = state.get("message_flow", "")
         rag_context = state.message_flow if state.message_flow else ""
-
+        state.response = "Entered API Worker. This is a test configuration."
+        return state.response
         formatter_template = """
         {user_message}
         List of available api keys: {api_keys_list}
