@@ -62,17 +62,16 @@ class RequestWorker(BaseWorker):
         return req_elements
 
     def format_user_message(self, state: MessageState) -> MessageState:
-        st.write("user formatting")
-        st.write(st.session_state.history)
-        #user_message = state["user_message"]
+        #st.write("user formatting")
+        #st.write(st.session_state.history)
+        api_keys_list = str(st.session_state.custom_keys)
         user_message = state.user_message
         #rag_context = state.get("message_flow", "")
         rag_context = state.message_flow if state.message_flow else ""
-        #else:
-        #    alt_context = "N/A"
 
         formatter_template = """
         {user_message}
+        List of available api keys: {api_keys_list}
         {rag_context}
         {formatting_context}
         """
@@ -81,6 +80,7 @@ class RequestWorker(BaseWorker):
 
         input_prompt = formatter_prompt.invoke({
             "user_message": user_message,
+            "api_keys_list": api_keys_list,
             "rag_context": rag_context,
             "formatting_context": formatting_context
         })
