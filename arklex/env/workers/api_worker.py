@@ -39,7 +39,7 @@ class RequestWorker(BaseWorker):
     def gen_request(self, encoded_request):
         request = json.loads(encoded_request)
         api_call = request["url"].replace(request["AuthKeyName"], os.environ.get(request["AuthKeyName"]))
-        st.write(api_call)
+        #st.write(api_call)
         return requests.get(api_call)
 
     def handle_response(self, state, api_response):
@@ -106,9 +106,9 @@ class RequestWorker(BaseWorker):
 
         response = self.gen_request(formatted_api_string)
         print(response.text)
-        st.write(response.text)
+        #st.write(response.text)
         status = self.handle_response(state, response)
-        st.write(status)
+        #st.write(status)
         if status: 
             summary_prompt = PromptTemplate.from_template(summary_template)
             input_summary = summary_prompt.invoke({

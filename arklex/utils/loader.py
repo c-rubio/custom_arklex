@@ -127,11 +127,10 @@ class Loader:
             try:
                 logger.info(f"loading url: {url_obj.source}")
                 driver.get(url_obj.source)
-                st.write("got website")
+                st.write(f"Retrieved webpage: {url_obj.source}")
                 time.sleep(2)
                 html = driver.page_source
                 soup = BeautifulSoup(html, "html.parser")
-                st.write("got soup")
 
                 text_list = []
                 for string in soup.strings:       
@@ -147,10 +146,9 @@ class Loader:
                 
                 title = url_obj.source
                 for title in soup.find_all("title"):
-                    st.write("in title loop") 
                     title = title.get_text()
                     break
-                st.write("at docs append") 
+                st.write(f"Append {url_obj.source} info to RAG storage") 
                 docs.append(
                     CrawledObject(
                         id=url_obj.id,
