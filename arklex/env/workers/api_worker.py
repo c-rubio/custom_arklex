@@ -63,6 +63,7 @@ class RequestWorker(BaseWorker):
 
     def format_user_message(self, state: MessageState) -> MessageState:
         st.write("user formatting")
+        st.write(st.session_state.history)
         #user_message = state["user_message"]
         user_message = state.user_message
         #rag_context = state.get("message_flow", "")
