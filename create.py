@@ -35,7 +35,7 @@ def generate_taskgraph(args):
 
 def init_worker(args):
     ## TODO: Need to customized based on different use cases
-    config = json.load(open(args.config))
+    config = json.load(open(args.config)) #TEST
     workers = config["workers"]
     worker_names = set([worker["name"] for worker in workers])
     if "FaissRAGWorker" in worker_names:
